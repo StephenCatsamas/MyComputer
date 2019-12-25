@@ -93,6 +93,7 @@ class CPU:
             if self.regA:
                 self.inst = val
                 return
+            return
             
         if val == 11:
             self.inc_inst()
@@ -100,6 +101,7 @@ class CPU:
             if self.regB:
                 self.inst = val
                 return
+            return
 
     def inc_inst(self):
         self.inst += 1
