@@ -4,7 +4,7 @@ import binaryLoad
 class RAM:
 
     def __init__(self):
-        self.size = 16
+        self.size = 256
         self.depth = 8
         self.memory = [0]*self.size
 
@@ -13,17 +13,22 @@ class RAM:
 
     def __str__(self):
         prnt = "-------RAM-------"
-        for address in self.memory:
-            adrtuple = divmod(address, 0b10000)
-            
-            prnt += "\n"
-            prnt += "{:04b}".format(adrtuple[0])
-            prnt += " "
-            prnt += "{:04b}".format(adrtuple[1])
-            prnt += "  "
+        for i,address in enumerate(self.memory):
+            if i % 16 == 0:
+                prnt += "\n"
             prnt += "{:02x}".format(address)
-            prnt += "  "
-            prnt += "{:3d}".format(address)
+            prnt += " "
+        # for address in self.memory:
+        #     adrtuple = divmod(address, 0b10000)
+        #
+        #     prnt += "\n"
+        #     prnt += "{:04b}".format(adrtuple[0])
+        #     prnt += " "
+        #     prnt += "{:04b}".format(adrtuple[1])
+        #     prnt += "  "
+        #     prnt += "{:02x}".format(address)
+        #     prnt += "  "
+        #     prnt += "{:3d}".format(address)
         return prnt
     
     def __getitem__(self, address):
@@ -154,13 +159,14 @@ prgm = binaryLoad.programmer("src.bin")
 for i,val in enumerate(prgm):
     MyCPU.write(i, val)
 
-i = 1
-while 1:
-    MyCPU.clock()
-    if i % 4 == 0:
-        print(MyCPU)
-    time.sleep(0.05)
-    i += 1
+print(MyCPU)
+# i = 1
+# while 1:
+#     MyCPU.clock()
+#     if i % 4 == 0:
+#         print(MyCPU)
+#     time.sleep(1)
+#     i += 1
 
 
 

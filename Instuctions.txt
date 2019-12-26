@@ -1,51 +1,54 @@
 Instruction file for my computer architecture
 
-No operation
-0b 0000 0000
-nop
+Note for two byte instructions the argument is located in the next memory address after the command
 
-Go To Address
-0b 0000 0001
-0b XXXX XXXX
-gto
+Name: NOP
+Value: 0b 0000 0000
+CPU performs no operation
 
-Load address into reg a
-0b 0000 0010
-0b XXXX XXXX
-lda
+Name: GTO
+Value: 0b 0000 0001
+Arg:   0b XXXX XXXX
+Program Counter skips to address Arg
 
-Load address into reg b
-0b 0000 0011
-0b XXXX XXXX
-ldb
+Name: LDA
+Value: 0b 0000 0010
+Arg:   0b XXXX XXXX
+Loads value at address Arg into register A
 
-Write reg a to address
-0b 0000 0110
-0b XXXX XXXX
-wra
+Name: LDB
+Value: 0b 0000 0011
+Arg:   0b XXXX XXXX
+Loads value at address Arg into register B
 
-Write reg b to address
-0b 0000 0111
-0b XXXX XXXX
-wrb
+Name: WRA
+Value: 0b 0000 0110
+Arg:   0b XXXX XXXX
+Writes value of register A to address Arg
 
-Add reg a and reg b, store in reg A
-0b 0000 1000
-add
+Name: WRB
+Value: 0b 0000 0111
+Arg:   0b XXXX XXXX
+Writes value of register B to address Arg
 
-Subtract reg b from reg a, store in reg A
-0b 0000 1001
-sub
+Name: ADD
+Value: 0b 0000 1000
+Adds value of reg b to reg a
 
-Branch if reg A one
-0b 0000 1010
-0b XXXX XXXX
-ifa
+Name: SUB
+Value: 0b 0000 1001
+Subtracts value of reg b from reg a
 
-Branch if reg A one
-0b 0000 1011
-0b XXXX XXXX
-ifb
+Name: IFA
+Value: 0b 0000 1010
+Arg:   0b XXXX XXXX
+Branch if reg A is one
+
+Name: IFB
+Value: 0b 0000 1011
+Arg:   0b XXXX XXXX
+Branch if reg B is one
+
 
 
 
