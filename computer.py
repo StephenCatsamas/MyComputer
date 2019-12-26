@@ -1,10 +1,11 @@
 import time
-
+import binaryLoad
 
 class RAM:
 
     def __init__(self):
         self.size = 16
+        self.depth = 8
         self.memory = [0]*self.size
 
     def __repr__(self):
@@ -13,13 +14,12 @@ class RAM:
     def __str__(self):
         prnt = "-------RAM-------"
         for address in self.memory:
-            addresshigh = address//16
-            addresslow = address - addresshigh
+            adrtuple = divmod(address, 0b10000)
             
             prnt += "\n"
-            prnt += "{:04b}".format(addresshigh)
+            prnt += "{:04b}".format(adrtuple[0])
             prnt += " "
-            prnt += "{:04b}".format(addresslow)
+            prnt += "{:04b}".format(adrtuple[1])
             prnt += "  "
             prnt += "{:02x}".format(address)
             prnt += "  "
@@ -30,6 +30,8 @@ class RAM:
         return self.memory[address]
 
     def __setitem__(self, address, value):
+        value = value % 2**self.depth
+
         self.memory[address] = value
 
     def __iter__(self):
@@ -37,6 +39,23 @@ class RAM:
 
 
 class CPU:
+
+    def __str__(self):
+        prnt = self.ram.__str__()
+        prnt += "\n"
+        prnt += "-------CPU-------"
+        for address in [self.regA, self.regB, self.inst]:
+            adrtuple = divmod(address, 0b10000)
+            
+            prnt += "\n"
+            prnt += "{:04b}".format(adrtuple[0])
+            prnt += " "
+            prnt += "{:04b}".format(adrtuple[1])
+            prnt += "  "
+            prnt += "{:02x}".format(address)
+            prnt += "  "
+            prnt += "{:3d}".format(address)
+        return prnt
     
     def __init__(self, RAM):
         self.regA = 0b0
@@ -52,7 +71,7 @@ class CPU:
 
         if val == 1:
             self.inc_inst()
-            self.inst = self.read()
+            self.inst = self.read()-1#next clock cycle will be correct
             return
 
         if val == 2:
@@ -81,10 +100,12 @@ class CPU:
 
         if val == 8:
             self.regA = self.regA + self.regB
+            self.regA = self.regA % 2 **self.ram.depth
             return
 
         if val == 9:
             self.regA = self.regA - self.regB
+            self.regA = self.regA % 2 **self.ram.depth
             return
 
         if val == 10:
@@ -108,7 +129,9 @@ class CPU:
         if self.inst == self.ram.size:
             self.inst = 0
 
-    def read(self, address = self.inst):
+    def read(self, address = "inst"):
+        if address == "inst":
+            address = self.inst
         return self.ram[address]
 
     def write(self, address, value):
@@ -124,19 +147,20 @@ class CPU:
 
 MyRAM = RAM()
 
-
-MyRAM[5] = 1
-
-MyRAM[6] = 3
-
-print(MyRAM)
-
-
 MyCPU = CPU(MyRAM)
 
+prgm = binaryLoad.programmer("src.bin")
+
+for i,val in enumerate(prgm):
+    MyCPU.write(i, val)
+
+i = 1
 while 1:
     MyCPU.clock()
-    time.sleep(1)
+    if i % 4 == 0:
+        print(MyCPU)
+    time.sleep(0.05)
+    i += 1
 
 
 
