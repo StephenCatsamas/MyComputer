@@ -159,15 +159,15 @@ prgm = binaryLoad.programmer("src.bin")
 for i,val in enumerate(prgm):
     MyCPU.write(i, val)
 
-print(MyCPU)
-# i = 1
-# while 1:
-#     MyCPU.clock()
-#     if i % 4 == 0:
-#         print(MyCPU)
-#     time.sleep(1)
-#     i += 1
 
+print(MyCPU)
+i = 1
+while 1:
+    MyCPU.clock()
+    # if i % 4 == 0:
+    print(MyCPU)
+    time.sleep(1)
+    i += 1
 
 
 
