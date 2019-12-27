@@ -116,7 +116,7 @@ class CPU:
         if val == 10:
             self.inc_inst()
             val = self.read()
-            if self.regA == 1:
+            if self.regA == 0:
                 self.inst = val
                 return
             return
@@ -124,7 +124,7 @@ class CPU:
         if val == 11:
             self.inc_inst()
             val = self.read()
-            if self.regB == 1:
+            if self.regB == 0:
                 self.inst = val
                 return
             return
@@ -164,9 +164,9 @@ print(MyCPU)
 i = 1
 while 1:
     MyCPU.clock()
-    # if i % 4 == 0:
-    print(MyCPU)
-    time.sleep(1)
+    if i % 4 == 0:
+        print(MyCPU)
+    time.sleep(0.1)
     i += 1
 
 

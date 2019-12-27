@@ -42,12 +42,12 @@ Subtracts value of reg b from reg a
 Name: IFA
 Value: 0b 0000 1010
 Arg:   0b XXXX XXXX
-Branch if reg A is one
+Branch if reg A is zero
 
 Name: IFB
 Value: 0b 0000 1011
 Arg:   0b XXXX XXXX
-Branch if reg B is one
+Branch if reg B is zero
 
 
 
