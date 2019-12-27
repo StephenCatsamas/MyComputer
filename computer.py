@@ -116,7 +116,7 @@ class CPU:
         if val == 10:
             self.inc_inst()
             val = self.read()
-            if self.regA:
+            if self.regA == 1:
                 self.inst = val
                 return
             return
@@ -124,7 +124,7 @@ class CPU:
         if val == 11:
             self.inc_inst()
             val = self.read()
-            if self.regB:
+            if self.regB == 1:
                 self.inst = val
                 return
             return
