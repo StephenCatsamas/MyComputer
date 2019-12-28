@@ -164,9 +164,9 @@ print(MyCPU)
 i = 1
 while 1:
     MyCPU.clock()
-    # if i % 4 == 0:
-    print(MyCPU)
-    time.sleep(1)
+    if i % 40 == 0:
+        print(MyCPU)
+    time.sleep(0.01)
     i += 1
 
 
